@@ -1,0 +1,10 @@
+Package: Dilaraspackage
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: Dilara Tuncyürek
+Maintainer: Dilara Tuncyürek <d.tuncyuerek@campus.lmu.de>
+Description: This packages adds two numbers together.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true

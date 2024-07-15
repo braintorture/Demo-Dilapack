@@ -1,0 +1,282 @@
+---
+title: "exsh4 test"
+author: "Dilara Tuncyürek (12629737)"
+date: "2024-06-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Exercise 1
+
+a) und b)
+```{r}
+
+# Pakete installieren (falls noch nicht installiert)
+#if (!require("osmdata")) install.packages("osmdata")
+#if (!require("tmap")) install.packages("tmap")
+#if (!require("sf")) install.packages("sf")
+
+
+library(osmdata)
+library(tmap)
+library(sf)
+
+alps_bbox <- getbb("Alps", format_out = "sf_polygon")
+
+print(alps_bbox)
+
+#b)
+
+# Plotten des Bounding Box
+tmap_mode("view")
+tm_shape(alps_bbox) +
+  tm_borders(col = "darkgreen") +
+  tm_layout(main.title = "Interactive Bounding Box for the Alps")
+
+# Nicht-interaktive Karte
+tmap_mode("plot")
+tm_shape(alps_bbox) +
+  tm_borders(col = "darkgreen") +
+  tm_layout(main.title = "Non-interactive Bounding Box for the Alps")
+
+```
+
+c)
+
+Interactive maps: Pros: Allow users to zoom and pan; useful for exploring data. Cons: Can be slower to load and render; may require more resources.
+
+Non-interactive maps: Pros: Faster to render; simpler and less resource-intensive. Cons: Less flexible; fixed view limits exploration.
+
+d)
+```{r}
+dolomites_bbox <- getbb("Dolomites", format_out = "sf_polygon")
+
+
+tmap_mode("plot")
+tm_shape(dolomites_bbox) +
+  tm_borders(col = "darkgreen") +
+  tm_layout(main.title = "Bounding Box for the Dolomites")
+
+```
+
+## Exercise 2
+
+a)
+The tag for wilderness huts in OpenStreetMaps is tourism=wilderness_hut
+https://wiki.openstreetmap.org/wiki/Item:Q6383
+
+b)
+```{r}
+query <- opq(bbox = st_bbox(dolomites_bbox)) %>%
+  add_osm_feature(key = "tourism", value = "wilderness_hut")
+```
+
+c)
+```{r}
+# Herunterladen der Daten
+ wilderness_huts <- osmdata_sf(query) 
+
+# Anzahl der Wilderness-Hütten zählen
+n_huts <- nrow(wilderness_huts$osm_points)
+print(n_huts)
+```
+
+d)
+```{r}
+# Hütten mit Namen filtern
+huts_with_names <- wilderness_huts$osm_points[!is.na(wilderness_huts$osm_points$name), ]
+#n_huts_with_names <- nrow(huts_with_names)
+#print(n_huts_with_names)
+
+# Höhe in numerisches Format konvertieren
+#huts_with_names$ele <- as.numeric(huts_with_names$ele)
+```
+
+e)
+```{r}
+# Hütten auf einer interaktiven Karte plotten
+tmap_mode("view")
+tm_shape(huts_with_names) +
+  tm_dots(col = "ele", popup.vars = c("name", "ele")) +
+  tm_layout(main.title = "Wilderness Huts in the Dolomites")
+```
+
+#-->PROBLEM
+
+f)
+```{r}
+# Eine ansprechende Hütte auswählen und Höhenangabe
+selected_hut <- huts_with_names[1, ]
+selected_hut_name <- selected_hut$name
+selected_hut_elevation <- 
+  
+print(selected_hut_name)
+print(selected_hut_elevation)
+
+```
+
+## Exercise 3
+
+a)
+```{r}
+library(ggplot2)
+matches <- read.csv("matches.csv")
+
+#matches <- read.csv("https://raw.githubusercontent.com/jfjelstul/englishfootball/master/data/matches.csv") ->kann Verbindung nicht zum Link aufbauen
+
+# Visualizing goals per game over time
+#matches$date <- as.Date(matches$date)
+#matches$year <- format(matches$date, "%Y")
+#matches$goals <- matches$home_goals + matches$away_goals
+
+#goals_per_game <- aggregate(goals ~ year, data = matches, FUN = mean)
+
+ggplot(matches, aes(x = as.numeric(season), y = score)) +
+  geom_point() +
+  ggtitle("Average Goals per Game Over Time") +
+  xlab("Year") +
+  ylab("Average Goals")
+
+```
+# --> PROBLEM
+
+b)
+```{r}
+install.packages("gifski")
+library(gganimate)
+
+p <- ggplot(matches, aes(x = as.numeric(season), y = score)) +
+  geom_line() +
+  ggtitle("Total Goals per Year") +
+  xlab("Year") +
+  ylab("Total Goals")
+
+animated_plot <- p + transition_reveal(as.numeric(season))
+animate(animated_plot)
+
+```
+
+c)
+
+```{r}
+standings <- read.csv("standings.csv")
+liverpool_standings <- standings[standings$team == "Liverpool", ]
+
+#positions ist final placement
+#points ist number of points
+
+# Creating an animated plot for Liverpool FC's performance
+
+P2 <- ggplot(liverpool_standings, aes(x = position, y = points)) +
+  geom_line() +
+  geom_point(aes(color = position)) +
+  ggtitle("Liverpool FC Performance Over the Years") +
+  xlab("Year") +
+  ylab("Points") 
+
+P2
+
+#anim_save("liverpool_performance.gif", animation = p2)
+
+```
+
+d)
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gganimate)
+
+# Laden der standings.csv Datei
+standings <- read.csv("standings.csv")
+
+# Filtern der Daten für Liverpool FC
+liverpool_data <- standings %>%
+  filter(team == "Liverpool") %>%
+  select(season, points, position)
+
+# Statischer Plot für Liverpool FC
+static_plot <- ggplot(liverpool_data, aes(x = season, y = points, color = position)) +
+  geom_point() +
+  geom_line() +
+  scale_color_gradient(low = "red", high = "blue") +
+  labs(title = "Liverpool FC Performance Over the Years",
+       x = "Season",
+       y = "Points",
+       color = "Final Position") +
+  theme_minimal()
+
+# Animierter Plot für Liverpool FC
+animated_plot <- static_plot +
+  transition_reveal(season) +
+  labs(title = "Liverpool FC Performance Over the Years: {frame_along}",
+       subtitle = "Points and Final Position")
+
+# Animation rendern und als GIF speichern
+anim_save("liverpool_performance.gif", animate(animated_plot, renderer = gifski_renderer()))
+
+# Angepasster animierter Plot für Liverpool FC
+adjusted_animated_plot <- static_plot +
+  transition_reveal(season) +
+  labs(title = "Liverpool FC Performance Over the Years: {frame_along}",
+       subtitle = "Points and Final Position") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+# Geschwindigkeit der Animation anpassen
+adjusted_animation <- animate(adjusted_animated_plot, nframes = 200, fps = 10, renderer = gifski_renderer())
+
+# Animation speichern
+anim_save("adjusted_liverpool_performance.gif", adjusted_animation)
+
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gganimate)
+
+# Laden der standings.csv Datei
+standings <- read.csv("https://raw.githubusercontent.com/jfjelstul/englishfootball/master/data/standings.csv")
+
+# Filtern der Daten für Liverpool FC
+liverpool_data <- standings %>%
+  filter(team == "Liverpool") %>%
+  select(season, points, position)
+
+# Statischer Plot für Liverpool FC
+static_plot <- ggplot(liverpool_data, aes(x = season, y = points, color = position)) +
+  geom_point() +
+  geom_line() +
+  scale_color_gradient(low = "red", high = "blue") +
+  labs(title = "Liverpool FC Performance Over the Years",
+       x = "Season",
+       y = "Points",
+       color = "Final Position") +
+  theme_minimal()
+
+# Animierter Plot für Liverpool FC
+animated_plot <- static_plot +
+  transition_reveal(season) +
+  labs(title = "Liverpool FC Performance Over the Years: {frame_along}",
+       subtitle = "Points and Final Position")
+
+# Animation rendern und als GIF speichern
+anim_save("liverpool_performance.gif", animate(animated_plot, renderer = gifski_renderer()))
+
+# Angepasster animierter Plot für Liverpool FC
+adjusted_animated_plot <- static_plot +
+  transition_reveal(season) +
+  labs(title = "Liverpool FC Performance Over the Years: {frame_along}",
+       subtitle = "Points and Final Position") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+# Geschwindigkeit der Animation anpassen
+adjusted_animation <- animate(adjusted_animated_plot, nframes = 200, fps = 10, renderer = gifski_renderer())
+
+# Animation speichern
+anim_save("adjusted_liverpool_performance.gif", adjusted_animation)
+
+```
+

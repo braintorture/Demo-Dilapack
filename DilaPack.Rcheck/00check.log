@@ -1,0 +1,96 @@
+* using log directory 'C:/Users/murat/LRZ Sync+Share/4. Semester/Statistik und Data Science/Statistische Software/Sessions/4/git-example/DilaPack.Rcheck'
+* using R version 4.3.1 (2023-06-16 ucrt)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* R was compiled by
+    gcc.exe (GCC) 12.2.0
+    GNU Fortran (GCC) 12.2.0
+* running under: Windows 11 x64 (build 22631)
+* using session charset: UTF-8
+* using options '--no-manual --as-cran'
+* checking for file 'DilaPack/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'DilaPack' version '0.1.0'
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  hello/.Rbuildignore
+These were most likely included in error. See section 'Package
+structure' in the 'Writing R Extensions' manual.
+* checking for portable file names ... OK
+* checking serialization versions ... OK
+* checking whether package 'DilaPack' can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking 'build' directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  'hello'
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+median_calc: no visible global function definition for 'median'
+Undefined global functions or variables:
+  median
+Consider adding
+  importFrom("stats", "median")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from 'inst/doc' ... OK
+* checking files in 'vignettes' ... OK
+* checking examples ... OK
+* checking for unstated dependencies in 'tests' ... WARNING
+'::' oder ':::' importieren unangemeldet aus: 'rlang'
+* checking tests ... ERROR
+  Running 'testthat.R'
+Running the tests in 'tests/testthat.R' failed.
+Last 13 lines of output:
+  ══ Failed tests ════════════════════════════════════════════════════════════════
+  ── Error ('test-hello.R:10:1'): (code run outside of `test_that()`) ────────────
+  Error: argument `expected` is missing, with no default.
+  Backtrace:
+      ▆
+   1. ├─testthat::test_that(expect_equal(mean_calc(c(1, 2, 3, 4, 5)))) at test-hello.R:10:0
+   2. │ └─testthat:::check_string(desc)
+   3. │   └─testthat:::.rlang_check_is_string(...)
+   4. │     └─rlang::is_string(x)
+   5. └─testthat::expect_equal(mean_calc(c(1, 2, 3, 4, 5)))
+   6.   └─testthat::quasi_label(enquo(expected), expected.label, arg = "expected")
+  
+  [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in 'inst/doc' ... OK
+* checking re-building of vignette outputs ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 3 NOTEs

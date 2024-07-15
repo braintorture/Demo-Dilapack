@@ -1,0 +1,40 @@
+---
+title: "ExSh 4 2.Versuch ohne distill"
+author: "Dilara Tuncyürek (12629737)"
+date: "2024-06-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Exercise 1
+
+a)
+```{r}
+library(osmdata)
+
+alps_bbox <- getbb("Alps")
+print(alps_bbox)
+
+```
+b)
+```{r}
+library(sf)
+library(tmap)
+
+alps_bbox_sf <- opq(bbox = alps_bbox) %>%
+  add_osm_feature(key = 'natural', value = 'mountain_range') %>%
+  osmdata_sf()
+
+tm_shape(alps_bbox_sf$osm_multipolygons) +
+  tm_borders(col = "darkgreen") +
+  tmap_mode("view")  # For interactive version
+
+tm_shape(alps_bbox_sf$osm_multipolygons) +
+  tm_borders(col = "darkgreen") +
+  tmap_mode("plot")  # For non-interactive version
+
+```
+
