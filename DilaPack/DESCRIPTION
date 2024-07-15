@@ -4,7 +4,11 @@ Title: What the Package Does (Demo)
 Version: 0.1.0
 Author: Dilara Tuncyürek
 Maintainer: Dilara Tuncyürek <d.tuncyuerek@campus.lmu.de>
-Description: The package first of all greets the user and than calculates the mean as well as the median. I chose this funvtion to enable a general overview about a spezific dataset.
+Description: The Dilapack package provides easy-to-use functions for basic statistical calculations. 
+The `mean_calc` function computes the arithmetic mean of a numeric vector, offering a simple way to determine the average value of a dataset. 
+The `median_calc` function calculates the median, identifying the middle value in a numeric vector and providing a measure of central tendency. 
+These functions are designed to facilitate quick and accurate statistical analysis for users of all skill levels.
+
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
