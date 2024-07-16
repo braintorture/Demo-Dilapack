@@ -1,5 +1,5 @@
 ---
-title: "demo"
+title: "Exercise Sheet 6 Fortgeschrittene Statistische Software"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{demo}
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(DilaPack)
+library(Demo-DilaPack)
 hello()
 mean_calc(c(1,2,3,4,5))
 median_calc(c(1,2,3,4,5))
