@@ -20,3 +20,15 @@ hello()
 mean_calc(c(1,2,3,4,5))
 median_calc(c(1,2,3,4,5))
 ```
+
+```{r}
+install.packages("remotes")
+```
+
+```{r}
+remotes::install_github("braintorture/Demo-Dilapack")
+
+
+```
+
+
