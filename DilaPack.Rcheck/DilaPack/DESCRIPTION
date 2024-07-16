@@ -4,7 +4,7 @@ Title: What the Package Does (Demo)
 Version: 0.1.0
 Author: Dilara Tuncyürek
 Maintainer: Dilara Tuncyürek <d.tuncyuerek@campus.lmu.de>
-Description: The package first of all greets the user and than calculates the mean as well as the median.
+Description: The Dilapack package provides easy-to-use functions for basic statistical calculations. mean_calc computes the arithmetic mean of a numeric vector, while median_calc determines the median, providing essential tools for quick and accurate statistical analysis.
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.3.2
@@ -12,5 +12,5 @@ Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2024-07-15 17:43:58 UTC; murat
-Built: R 4.3.1; ; 2024-07-15 17:44:06 UTC; windows
+Packaged: 2024-07-15 18:24:46 UTC; murat
+Built: R 4.3.1; ; 2024-07-15 18:24:55 UTC; windows
