@@ -1,6 +1,6 @@
-Package: DilaPack
+Package:Demo-DilaPack
 Type: Package
-Title: What the Package Does (Demo)
+Title: The Dilapack package provides easy-to-use functions for basic statistical calculations
 Version: 0.1.0
 Author: Dilara Tuncyürek
 Maintainer: Dilara Tuncyürek <d.tuncyuerek@campus.lmu.de>
