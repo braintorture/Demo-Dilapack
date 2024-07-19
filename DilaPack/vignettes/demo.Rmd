@@ -22,7 +22,10 @@ median_calc(c(1,2,3,4,5))
 ```
 
 ```{r}
-install.packages("remotes")
+#install.packages("remotes")
+
+remotes::install_github("braintorture/Demo -Dilapack")
+remotes:::install_remotes(...)
 ```
 
 ```{r}

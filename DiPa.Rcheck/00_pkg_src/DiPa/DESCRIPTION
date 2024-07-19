@@ -1,0 +1,12 @@
+Package: DiPa
+Type: Package
+Title: Exercise Sheet #6 Fortgeschrittene Statistische Software für NF
+Version: 0.1.0
+Author: Dilara Tuncyürek
+Maintainer: The package maintainer <d.tuncyuerek@campus.lmu.de>
+Description: The Dilapack package provides easy-to-use functions for basic statistical calculations. mean_calc computes the arithmetic mean of a numeric vector, while median_calc determines the median, providing essential tools for quick and accurate statistical analysis.
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+NeedsCompilation: no
+Packaged: 2024-07-18 18:30:57 UTC; murat
